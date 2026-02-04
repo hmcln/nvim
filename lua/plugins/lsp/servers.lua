@@ -123,9 +123,18 @@ M.servers = function(on_attach, capabilities)
         capabilities = capabilities,
       })
     end,
-    pyright = function()
-      require("lspconfig").pyright.setup({
+    basedpyright = function()
+      require("lspconfig").basedpyright.setup({
         on_attach = on_attach,
+        capabilities = capabilities,
+      })
+    end,
+    ruff_lsp = function()
+      require("lspconfig").ruff_lsp.setup({
+        on_attach = function(client, bufnr)
+          client.server_capabilities.hoverProvider = false
+          on_attach(client, bufnr)
+        end,
         capabilities = capabilities,
       })
     end,
